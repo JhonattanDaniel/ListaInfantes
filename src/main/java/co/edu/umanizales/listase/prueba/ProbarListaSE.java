@@ -10,7 +10,7 @@ import co.edu.umanizales.listase.modelo.ListaSE;
 import co.edu.umanizales.listase.modelo.Perro;
 /**
  *
- * @author carloaiza
+ * @author 
  */
 public class ProbarListaSE {
     public static void main(String... args)
@@ -18,15 +18,15 @@ public class ProbarListaSE {
         //Instanciar una lista se
         ListaSE listaPerros= new ListaSE();
         
-        Perro lulu = new Perro("Lulú",(byte) 1, (byte)9);
+        Perro lulu = new Perro("Lulú",(byte) 1, (byte)9,"hembra");
         listaPerros.adicionarNodo(lulu);
         
-        Perro firulais = new Perro("Firulais", (byte)2, (byte)4);
+        Perro firulais = new Perro("Firulais", (byte)2, (byte)4,"macho");
         listaPerros.adicionarNodo(firulais);
         
-        Perro pastor = new Perro("Tobby", (byte)3, (byte)6);
+        Perro pastor = new Perro("Tobby", (byte)3, (byte)6,"macho");
         listaPerros.adicionarNodo(pastor);
         
-        System.out.println("finalizao");
+        System.out.println(listaPerros.encontrarPosicion(4).getDato().getNombre());
     }
 }

@@ -9,21 +9,24 @@ import java.io.Serializable;
 
 /**
  *
- * @author carloaiza
+ * @author 
  */
 public class Perro implements Serializable{
    private String nombre;
    private byte numero;
    private byte edad;
+   private String genero;
 
     public Perro() {
     }
 
-    public Perro(String nombre, byte numero, byte edad) {
+    public Perro(String nombre, byte numero, byte edad, String genero) {
         this.nombre = nombre;
         this.numero = numero;
         this.edad = edad;
+        this.genero = genero;
     }
+
 
     public String getNombre() {
         return nombre;
@@ -47,6 +50,14 @@ public class Perro implements Serializable{
 
     public void setEdad(byte edad) {
         this.edad = edad;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     @Override

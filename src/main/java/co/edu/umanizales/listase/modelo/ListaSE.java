@@ -7,13 +7,14 @@ package co.edu.umanizales.listase.modelo;
 
 /**
  *
- * @author carloaiza
+ * @author
  */
 public class ListaSE {
+
     private Nodo cabeza;
 
-    public ListaSE() {    
-    }     
+    public ListaSE() {
+    }
 
     public Nodo getCabeza() {
         return cabeza;
@@ -22,101 +23,83 @@ public class ListaSE {
     public void setCabeza(Nodo cabeza) {
         this.cabeza = cabeza;
     }
-    
+
     /**
      * Método para adicionar un nodo
-     * 
-        - Si tiene perros
-            llamar a un ayudante
-            recorrer todos los perros , mirando si tienen otro ammarrado
-            cuando llegue al perro libre (No ammarrado a otro)
-            amarra el nuevo perro
-
-        si no tiene perros
-           El perro entrante Es la cabeza
+     *
+     * - Si tiene perros llamar a un ayudante recorrer todos los perros ,
+     * mirando si tienen otro ammarrado cuando llegue al perro libre (No
+     * ammarrado a otro) amarra el nuevo perro
+     *
+     * si no tiene perros El perro entrante Es la cabeza
      */
-    public void adicionarNodo(Perro dato)
-    {
-        if(cabeza==null)
-        {
+    public void adicionarNodo(Perro dato) {
+        if (cabeza == null) {
             //No tiene perros
             cabeza = new Nodo(dato);
-        }
-        else
-        {
+        } else {
             // tiene perros
             Nodo temp = cabeza;
-            while(temp.getSiguiente()!=null)
-            {
-                temp= temp.getSiguiente();
+            while (temp.getSiguiente() != null) {
+                temp = temp.getSiguiente();
             }
             //Ubicado o parado en el último
             temp.setSiguiente(new Nodo(dato));
         }
     }
-    
-    
+
     /**
-     * Método que sirve para contar la cantidad de elementos de la Lista SE  
+     * Método que sirve para contar la cantidad de elementos de la Lista SE
+     *
      * @return int cantidad de elementos
      */
-    public int contarNodos()  //cabeza
+    public int contarNodos() //cabeza
     {
-        if(cabeza!=null)
-        {
-            Nodo temp= cabeza;
-            int cont=1;
-            while(temp.getSiguiente()!=null) //Mientras el lazo este lleno
+        if (cabeza != null) {
+            Nodo temp = cabeza;
+            int cont = 1;
+            while (temp.getSiguiente() != null) //Mientras el lazo este lleno
             {
                 temp = temp.getSiguiente(); // Ayudante pase al siguiente perro
                 cont++;
             }
             return cont;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
-    
+
     /**
      * Método que adiciona un nodo al inicio
-     * @param perro Dato a agregar     * 
+     *
+     * @param perro Dato a agregar *
      */
-    public void adicionarNodoAlInicio(Perro perro)
-    {
-        if(cabeza!=null)
-        {
+    public void adicionarNodoAlInicio(Perro perro) {
+        if (cabeza != null) {
             Nodo temp = new Nodo(perro);
             temp.setSiguiente(cabeza);
-            cabeza= temp;
-        }
-        else
-        {
+            cabeza = temp;
+        } else {
             cabeza = new Nodo(perro);
         }
     }
-    
+
     /**
-     * Método que permite intercambiar los datos de los extremos de la lista     * 
+     * Método que permite intercambiar los datos de los extremos de la lista *
      */
-    public void intercambiarExtremos()
-    {
-        if(cabeza!=null)
-        {
-           Nodo temp = cabeza;
-           while(temp.getSiguiente()!=null)
-           {
-               temp = temp.getSiguiente();
-           }
-           /// Parado en el último nodo
-           Perro perrotemp = cabeza.getDato();
-           cabeza.setDato(temp.getDato());
-           temp.setDato(perrotemp);           
+    public void intercambiarExtremos() {
+        if (cabeza != null) {
+            Nodo temp = cabeza;
+            while (temp.getSiguiente() != null) {
+                temp = temp.getSiguiente();
+            }
+            /// Parado en el último nodo
+            Perro perrotemp = cabeza.getDato();
+            cabeza.setDato(temp.getDato());
+            temp.setDato(perrotemp);
         }
     }
-    
-    
+
     public void invertir() {
         if (cabeza != null) {
             ListaSE listaTemporal = new ListaSE();
@@ -129,7 +112,76 @@ public class ListaSE {
             cabeza = listaTemporal.getCabeza();
         }
     }
-    
-    
-    
+
+    public void eliminarNodo(byte id) {
+
+//Busca un ayudante (anterior) y lo asigna a la cabeza
+        Nodo anterior = cabeza;
+        if (anterior.getDato().getNumero() == id) {
+            //Eliminar cabeza
+            cabeza = anterior.getSiguiente();
+        } else {
+
+            //Mientras el siguiente del ayudante tenga un numero diferente al id
+            //sigue pasano de nodo a nodo hasta que el id del nodo coincida con el ingresado   
+            while (anterior.getSiguiente().getDato().getNumero() != id) {
+                anterior = anterior.getSiguiente();
+            }
+            //Si el seiguiente del nodo encontrado en el ciclo es null, se debe eliminar el anterior al nodo
+            if (anterior.getSiguiente().getSiguiente() == null) {
+                anterior.setSiguiente(null);
+            } else {
+
+                anterior.setSiguiente(anterior.getSiguiente().getSiguiente());
+
+            }
+        }
+
+    }
+
+    public Nodo encontrarPosicion(int pos) {
+
+       // if (pos <= contarNodos()) {
+            int cont = 1;
+            Nodo temp = cabeza;
+            while (temp.getSiguiente() != null) //Mientras el lazo este lleno
+            {
+                if (cont == pos) {
+                    return temp;
+                } else {
+                    temp = temp.getSiguiente(); // Ayudante pase al siguiente perro
+                    cont++;
+                }
+            }
+            return temp;
+
+        //} else {
+          //  return null;
+        }
+
+    public void ordenarGenero(String gen) {
+        Nodo temp = cabeza;
+
+        if (temp.getDato().getGenero().equals(gen)) {
+            while (temp != null) {
+
+                if (temp.getDato().getGenero() != temp.getSiguiente().getDato().getGenero()) {
+                    temp=temp.getSiguiente();
+                }else{
+                    adicionarNodoAlInicio(temp.getSiguiente().getDato());
+                    temp = temp.getSiguiente();
+                }
+            }
+        }else{
+               while (temp != null) {
+
+                if (temp.getDato().getGenero() != temp.getSiguiente().getDato().getGenero()) {
+                    adicionarNodoAlInicio(temp.getSiguiente().getDato());
+                    temp=temp.getSiguiente();
+                }else{
+                    temp = temp.getSiguiente();
+                }
+            }
+        }
+    }
 }
