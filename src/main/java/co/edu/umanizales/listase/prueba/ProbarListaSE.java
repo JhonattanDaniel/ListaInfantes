@@ -6,6 +6,7 @@
 package co.edu.umanizales.listase.prueba;
 
 
+import co.edu.umanizales.listase.modelo.ListaDE;
 import co.edu.umanizales.listase.modelo.ListaSE;
 import co.edu.umanizales.listase.modelo.Perro;
 /**
@@ -16,7 +17,7 @@ public class ProbarListaSE {
     public static void main(String... args)
     {
         //Instanciar una lista se
-        ListaSE listaPerros= new ListaSE();
+        ListaDE listaPerros= new ListaDE();
         
         Perro lulu = new Perro("Lulú",(byte) 1, (byte)9,"hembra");
         listaPerros.adicionarNodo(lulu);
@@ -27,6 +28,8 @@ public class ProbarListaSE {
         Perro pastor = new Perro("Tobby", (byte)3, (byte)6,"macho");
         listaPerros.adicionarNodo(pastor);
         
-        System.out.println(listaPerros.encontrarPosicion(4).getDato().getNombre());
+        //System.out.println(listaPerros.encontrarPosicion(4).getDato().getNombre());
+        listaPerros.adicionarNodoporPosicionB(3, new Perro("robin", (byte)4, (byte)5,"macho"));
+        System.out.println(listaPerros.mostrarDatos());
     }
 }
