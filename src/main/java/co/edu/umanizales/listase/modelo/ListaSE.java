@@ -45,7 +45,7 @@ public class ListaSE {
             }
             //Ubicado o parado en el último
             temp.setSiguiente(new Nodo(dato));
-            
+
         }
     }
 
@@ -115,29 +115,34 @@ public class ListaSE {
     }
 
     public void eliminarNodo(byte id) {
+        Nodo temp = cabeza.getSiguiente();
+        Nodo tempA = cabeza;
+        if (tempA.getDato().getNumero() == id) {
+            if (tempA.getSiguiente() == null) {
+                cabeza = null;
+                //  ListaDE nuevaLista = new ListaDE();
 
-//Busca un ayudante (anterior) y lo asigna a la cabeza
-        Nodo anterior = cabeza;
-        if (anterior.getDato().getNumero() == id) {
-            //Eliminar cabeza
-            cabeza = anterior.getSiguiente();
+            } else {
+                //Eliminar cabeza
+                cabeza = temp;
+                //temp.setSiguiente(cabeza);
+                tempA = null;
+            }
         } else {
 
-            //Mientras el siguiente del ayudante tenga un numero diferente al id
-            //sigue pasano de nodo a nodo hasta que el id del nodo coincida con el ingresado   
-            while (anterior.getSiguiente().getDato().getNumero() != id) {
-                anterior = anterior.getSiguiente();
+            while (temp.getDato().getNumero() != id) {
+                tempA = temp.getSiguiente();
+                temp = temp.getSiguiente();
             }
-            //Si el seiguiente del nodo encontrado en el ciclo es null, se debe eliminar el anterior al nodo
-            if (anterior.getSiguiente().getSiguiente() == null) {
-                anterior.setSiguiente(null);
+
+            if (temp.getSiguiente() == null) {
+                temp = null;
+
             } else {
-
-                anterior.setSiguiente(anterior.getSiguiente().getSiguiente());
-
+                tempA.setSiguiente(temp.getSiguiente());
             }
-        }
 
+        }
     }
 
     public Perro encontrarPosicion(int pos) {
@@ -181,8 +186,21 @@ public class ListaSE {
                     cabeza = nuevaLista.getCabeza();
                 }
                 break;
-            default: 
+            default:
                 break;
         }
+    }
+
+    public boolean comprobarID(Perro perroID) {
+        Nodo temp = cabeza;
+        while (temp != null) {
+
+            if (temp.getDato().getNumero() == perroID.getNumero()) {
+                return false;
+            } else {
+                temp = temp.getSiguiente();
+            }
+        }
+        return true;
     }
 }

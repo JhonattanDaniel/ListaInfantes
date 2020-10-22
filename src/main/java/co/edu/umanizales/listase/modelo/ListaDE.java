@@ -104,8 +104,8 @@ public class ListaDE {
     }
 
     public void intercambiarPorPosicion(int pos1, int pos2) {
-        byte cont1 = 1;
-        byte cont2 = 1;
+        int cont1 = 1;
+        int cont2 = 1;
         NodoDE temp1 = cabeza;
         NodoDE temp2 = cabeza;
 
@@ -124,30 +124,32 @@ public class ListaDE {
     }
 
     public void eliminarEnSitio(Perro perroeliminar) {
-        NodoDE temp = cabeza;
-        while (temp.getDato().getNumero() != perroeliminar.getNumero()) {
-            temp = temp.getSiguiente();
-        }
-        if (temp == cabeza) {
-            if (temp.getSiguiente() == null) {
-                cabeza = null;
-                //  ListaDE nuevaLista = new ListaDE();
+        if (cabeza != null) {
+            NodoDE temp = cabeza;
+            while (temp.getDato().getNumero() != perroeliminar.getNumero()) {
+                temp = temp.getSiguiente();
+            }
+            if (temp == cabeza) {
+                if (temp.getSiguiente() == null) {
+                    cabeza = null;
+                    //  ListaDE nuevaLista = new ListaDE();
+
+                } else {
+                    //Eliminar cabeza
+                    cabeza = temp.getSiguiente();
+                    //temp.setSiguiente(cabeza);
+                    cabeza.setAnterior(null);
+                    //  temp = cabeza;
+                }
+            } else if (temp.getSiguiente() == null) {
+                temp.getAnterior().setSiguiente(null);
 
             } else {
-                //Eliminar cabeza
-                cabeza = temp.getSiguiente();
-                //temp.setSiguiente(cabeza);
-                cabeza.setAnterior(null);
-                //  temp = cabeza;
+                temp.getSiguiente().setAnterior(temp.getAnterior());
+                temp.getAnterior().setSiguiente(temp.getSiguiente());
             }
-        } else if (temp.getSiguiente() == null) {
-            temp.getAnterior().setSiguiente(null);
 
-        } else {
-            temp.getSiguiente().setAnterior(temp.getAnterior());
-            temp.getAnterior().setSiguiente(temp.getSiguiente());
         }
-
     }
 
     public String mostrarDatos() {
@@ -165,15 +167,15 @@ public class ListaDE {
     public void adicionarNodoPorPosicion(int posicionIngreso, Perro dato) {
         if (cabeza != null) {
             int cont = 1;
-            NodoDE temp = cabeza;
             if (posicionIngreso == cont) {
                 adicionarAlInicio(dato);
             } else {
-                while (cont != posicionIngreso - 1) {
+                NodoDE temp = cabeza;
+                while (cont != posicionIngreso - 1 && temp.getSiguiente() != null) {
                     temp = temp.getSiguiente();
                     cont++;
                 }
-                if (posicionIngreso > contarNodosDE()) {
+                if (temp.getSiguiente() == null) {
 
                     adicionarNodo(dato);
                 } else {
@@ -190,19 +192,19 @@ public class ListaDE {
         }
 
     }
-    
-    public void adicionarNodoporPosicionB(int posicionIngreso, Perro dato){
-          if (cabeza != null) {
+
+    public void adicionarNodoporPosicionB(int posicionIngreso, Perro dato) {
+        if (cabeza != null) {
             int cont = 1;
             NodoDE temp = cabeza;
             if (posicionIngreso == cont) {
                 adicionarAlInicio(dato);
             } else {
-                while (cont != posicionIngreso) {
+                while (cont != posicionIngreso && temp.getSiguiente() != null) {
                     temp = temp.getSiguiente();
                     cont++;
                 }
-                if (posicionIngreso > contarNodosDE()) {
+                if (cont < posicionIngreso) {
 
                     adicionarNodo(dato);
                 } else {
@@ -217,5 +219,77 @@ public class ListaDE {
         } else {
             adicionarNodo(dato);
         }
+    }
+
+    public void invertir() {
+        if (cabeza != null) {
+            ListaDE listaTemporal = new ListaDE();
+            NodoDE temp = cabeza;
+            while (temp != null)//Recorre de principio a fin
+            {
+                listaTemporal.adicionarAlInicio(temp.getDato());
+                temp = temp.getSiguiente();//Ayudante pase al siguiente perro
+            }
+            cabeza = listaTemporal.getCabeza();
+        }
+    }
+
+    public Perro encontrarPosicion(int pos) {
+        if (cabeza != null) {
+            // if (pos <= contarNodos()) {
+            int cont = 1;
+            NodoDE temp = cabeza;
+            while (pos != cont) {
+                temp = temp.getSiguiente();
+                cont++;
+            }
+            return temp.getDato();
+        }
+        return null;
+    }
+
+    public void ordenarGenero(int gen) {
+
+        NodoDE temp = cabeza;
+        ListaDE nuevaLista = new ListaDE();
+        switch (gen) {
+            case 1:
+                while (temp != null) {
+                    if (temp.getDato().getGenero().equalsIgnoreCase("macho")) {
+                        nuevaLista.adicionarAlInicio(temp.getDato());
+                    } else if (temp.getDato().getGenero().equalsIgnoreCase("hembra")) {
+                        nuevaLista.adicionarNodo(temp.getDato());
+                    }
+                    temp = temp.getSiguiente();
+                    cabeza = nuevaLista.getCabeza();
+                }
+                break;
+            case 2:
+                while (temp != null) {
+                    if (temp.getDato().getGenero().equalsIgnoreCase("hembra")) {
+                        nuevaLista.adicionarAlInicio(temp.getDato());
+                    } else if (temp.getDato().getGenero().equalsIgnoreCase("macho")) {
+                        nuevaLista.adicionarNodo(temp.getDato());
+                    }
+                    temp = temp.getSiguiente();
+                    cabeza = nuevaLista.getCabeza();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public boolean comprobarID(Perro perroID) {
+        NodoDE temp = cabeza;
+        while (temp != null) {
+
+            if (temp.getDato().getNumero() == perroID.getNumero()) {
+                return false;
+            } else {
+                temp = temp.getSiguiente();
+            }
+        }
+        return true;
     }
 }
