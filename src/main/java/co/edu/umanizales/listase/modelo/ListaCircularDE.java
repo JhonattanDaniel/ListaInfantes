@@ -49,7 +49,7 @@ public class ListaCircularDE {
         totalPerros++;
     }
 
-    public int Sumardatos(String tipo) {
+    public int sumarDatos(String tipo) {
         NodoDE temp = cabeza.getAnterior();
         int sumaTotal = 0;
         if (tipo.equals("par")) {
@@ -60,6 +60,8 @@ public class ListaCircularDE {
             while (temp.getAnterior() != cabeza) {
                 temp = temp.getAnterior().getAnterior();
                 sumaTotal += temp.getDato().getNumero();
+                
+                
             }
 
         } else if (tipo.equals("impar")) {
@@ -70,6 +72,8 @@ public class ListaCircularDE {
             while (temp.getAnterior() != cabeza.getAnterior()) {
                 temp = temp.getAnterior().getAnterior();
                 sumaTotal += temp.getDato().getNumero();
+                
+                
             }
         }
         return sumaTotal;

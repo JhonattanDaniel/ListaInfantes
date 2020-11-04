@@ -31,9 +31,12 @@ public class ProbarListaSE {
         Perro pastor = new Perro("Tobby", (byte)3, (byte)6,"macho");
         listaCircular.adicionarNodoCircular(pastor);
         
+        Perro pastor1 = new Perro("Tobby", (byte)3, (byte)6,"macho");
+        listaCircular.adicionarNodoCircular(pastor);
+        
         listaCircular.adicionarNodoCircular(new Perro("robin", (byte)4, (byte)5, "macho"));
         //System.out.println(listaPerros.encontrarPosicion(4).getDato().getNombre());
         //listaPerros.adicionarNodoPorPosicion(3, new Perro("robin", (byte)4, (byte)5,"macho"));
-        System.out.println(listaCircular.Sumardatos("impar"));
+        System.out.println(listaCircular.sumarDatos("impar"));
     }
 }
