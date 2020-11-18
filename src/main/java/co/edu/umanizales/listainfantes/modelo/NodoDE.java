@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.umanizales.listase.modelo;
+package co.edu.umanizales.listainfantes.modelo;
 
 import java.io.Serializable;
 
@@ -13,19 +13,19 @@ import java.io.Serializable;
  */
 public class NodoDE implements Serializable {
 
-    private Perro dato;
+    private Infante dato;
     private NodoDE siguiente;
     private NodoDE anterior;
 
-    public NodoDE(Perro dato) {
+    public NodoDE(Infante dato) {
         this.dato = dato;
     }
 
-    public Perro getDato() {
+    public Infante getDato() {
         return dato;
     }
 
-    public void setDato(Perro dato) {
+    public void setDato(Infante dato) {
         this.dato = dato;
     }
 
